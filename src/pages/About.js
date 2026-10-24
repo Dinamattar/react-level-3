@@ -51,7 +51,7 @@ export default function About() {
           </Helmet>
           <Header />
           <main>
-            <p className='profile-data'>Welcome : {user.displayName} <span>🧡</span></p>
+            <p>Welcome : {user.displayName} <span>🧡</span></p>
           </main>
           <Footer />
         </div>

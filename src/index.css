@@ -7,6 +7,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.flex {
+  display: flex;
+}
+
+.mt{
+  margin-top: 1em;
+}
+.mtt{
+  margin-top: 2em;
+}
+.mttt{
+  margin-top: 3em;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -63,6 +77,10 @@ form button:active{
 
 }
 
+.ligth  p{
+  color:#111;
+}
+
 .profile{
   display: flex;
   flex-direction: column;
@@ -100,3 +118,39 @@ button:active{
 
 }
 
+main {
+  color: #1b1b1b;
+  min-height: calc(100vh - 128.64px);
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* theme */
+.dark {
+  background-color: black;
+}
+.dark main {
+  background-color: black;
+  color: rgb(255, 254, 254);
+}
+ /* animation for heart */
+span {
+  animation: heart 2s infinite linear;
+}
+
+@keyframes heart {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}

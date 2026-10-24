@@ -149,24 +149,14 @@ const Signup = () => {
   if (error) {
     return (
       <div>
-        <p>Error: {error}</p>
+        <p>Error: {error.message}</p>
       </div>
     );
   }
 
   if (user) {
     if (!user.emailVerified) {
-      return (
-        <div>
-          <Header />
-          <main>
-            {" "}
-            <p className="load">we send you an email to verify your account</p>
-            <button className="delete">Resend Verification Email</button>
-          </main>
-          <Footer />
-        </div>
-      );
+      return navigate("/");
     }
   }
 };

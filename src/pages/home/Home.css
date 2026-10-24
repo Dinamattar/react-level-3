@@ -1,0 +1,74 @@
+/* Option(fitered data) */
+.home .parent-of-btns {
+  /* border: 2px solid red; */
+  /* padding :7px 10px ; */
+}
+
+.home .parent-of-btns button {
+  background-color: #3467c2;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  margin-right: 15px;
+  padding: 6px 10px;
+}
+
+.home .parent-of-btns select {
+  background-color: #666;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+/* show all task */
+.home .all-task {
+  /* border: 2px solid red; */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.home .all-task .one-task {
+  border: 2px solid antiquewhite;
+  margin: 40px 20px;
+  padding: 7px 10px;
+  width: 300px;
+  height: 200px;
+  transition: 0.2s;
+}
+
+.home .all-task .one-task:hover {
+  border-left: 8px solid antiquewhite;
+}
+
+.home .all-task .one-task h2 {
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.home .all-task .one-task li {
+  list-style-position: inside;
+  list-style-type: circle;
+  font-size: 15px;
+  line-height: 30px;
+  text-align: left;
+  margin-left: 10px;
+  text-align: start;
+  margin-right: 15px;
+}
+
+.home .all-task .one-task .time {
+  font-size: 10px;
+  text-align: right;
+  margin-right: 8px;
+}
+/* Add new task */
+.home .add-task-btn button {
+  background-color: teal;
+  font-size: 16px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+}
+
+.home .add-task-btn .fa-plus {
+  font-size: 13px;
+}

@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import { DataProvider } from "./context/DataContext";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

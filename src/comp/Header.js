@@ -5,14 +5,14 @@ import { useContext } from "react";
 import DataContext from "../context/DataContext";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from "../firebase/config";
-import {  signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 const Header = () => {
   const [user] = useAuthState(auth);
 
   const { theme, changeTheme } = useContext(DataContext);
 
-  
+
   return (
     <div className='myheader'>
       <header className="hide-when-mobile dina">
@@ -25,20 +25,20 @@ const Header = () => {
 
           {user && <li className="main-list">
             <NavLink className="main-link" to="/About">
-             
+
               About
             </NavLink >
-          
+
           </li>}
 
-         
+
 
           {user && <li className="main-list">
             <NavLink className="main-link" to="/profile">
-             
-             Profile
+
+              Profile
             </NavLink >
-           
+
           </li>}
 
 
@@ -77,7 +77,10 @@ const Header = () => {
 
         </ul>
       </header>
-      <header className="show-when-mobile">
+
+
+
+      {/* <header className="show-when-mobile">
         <h1>React Course</h1>
         <label className="absolute" htmlFor="burger">
           <i className="fas fa-bars" />
@@ -144,7 +147,7 @@ const Header = () => {
             </ul>
           </div>
         </div>
-      </header>
+      </header> */}
     </div>
   );
 };
