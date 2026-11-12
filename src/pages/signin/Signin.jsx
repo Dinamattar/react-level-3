@@ -1,17 +1,17 @@
 import React from "react";
-import Header from "../comp/Header";
-import Footer from "../comp/Footer";
+import Header from "../../comp/Header";
+import Footer from "../../comp/Footer";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase/config";
+import { auth } from "../../firebase/config";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import "../pages/signin.css";
-
+import "./signin.css";
+import Model from "../../pages/shared/Model";
 const Signin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -19,7 +19,6 @@ const Signin = () => {
   const [hasError, setHasError] = useState(false);
   const [firebaseError, setFirebaseError] = useState("");
   const [showSendEmail, setShowSendEmail] = useState(false);
-  const [showFrom, setShowFrom] = useState("");
   const [resetPass, setResetPass] = useState("");
 
   const signInBTN = (eo) => {
@@ -61,6 +60,8 @@ const Signin = () => {
       });
   };
 
+  //Level 3
+  const [showModel, setShowModel] = useState(false);
   const resetPassword = (eo) => {
     eo.preventDefault();
 
@@ -75,6 +76,9 @@ const Signin = () => {
         console.log(errorCode);
       });
   };
+  const closeModel = () => {
+    setShowModel(false);
+  };
 
   return (
     <div>
@@ -83,37 +87,31 @@ const Signin = () => {
       </Helmet>
       <Header />
       <main>
-        <form className={`forget-password ${showFrom}`}>
-          <div
-            onClick={() => {
-              setShowFrom("");
-            }}
-            className="close"
-          >
-            X
-          </div>
-          <input
-            onChange={(eo) => {
-              setResetPass(eo.target.value);
-            }}
-            required
-            placeholder="Email"
-            type="email"
-          />
-          <button
-            onClick={(eo) => {
-              resetPassword(eo);
-            }}
-          >
-            Reset Password
-          </button>
-          {showSendEmail && (
-            <p className="check-email">
-              {" "}
-              Please check your email to reset your password{" "}
-            </p>
-          )}
-        </form>
+        {showModel && (
+          <Model closeModel={closeModel}>
+            <input
+              onChange={(eo) => {
+                setResetPass(eo.target.value);
+              }}
+              required
+              placeholder="Email"
+              type="email"
+            />
+            <button
+              onClick={(eo) => {
+                resetPassword(eo);
+              }}
+            >
+              Reset Password
+            </button>
+            {showSendEmail && (
+              <p className="check-email">
+                {" "}
+                Please check your email to reset your password{" "}
+              </p>
+            )}
+          </Model>
+        )}
 
         <form>
           <p>Sign in</p>
@@ -143,7 +141,7 @@ const Signin = () => {
           </p>
           <p
             onClick={() => {
-              setShowFrom("show-forget-pass");
+              setShowModel(true);
             }}
             className="Reset-Password"
           >

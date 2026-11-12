@@ -1,23 +1,4 @@
-.forget-password {
-  background-color: #f5f5f5;
-  width: 400px;
-  height: 330px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  scale: 0;
-  /* transform: translateY(-100vh); */
-    transition: 1s;
-    border: 1.5px solid #111;
 
-}
 
 .close {
   font-size: 28px;
@@ -58,8 +39,8 @@
 
 }
 
-.show-forget-pass{
+/* .show-forget-pass{
   scale: 1;
-    /* transform: translateY(0); */
+    transform: translateY(0);
 
-}
+} */

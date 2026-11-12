@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { sendEmailVerification } from "firebase/auth";
 import "./Home.css";
+import { useState } from "react";
+import Model from "../../pages/shared/Model";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
@@ -18,6 +20,15 @@ export default function Home() {
       // ...
       console.log("we send you an  email to verify your account");
     });
+  };
+
+  const [showModel, setShowModel] = useState(false);
+  const resetPassword = (eo) => {
+    eo.preventDefault();
+    setShowModel(true);
+  };
+  const closeModel = () => {
+    setShowModel(false);
   };
 
   if (loading) {
@@ -63,39 +74,65 @@ export default function Home() {
             {/* show all task */}
             <section className="all-task flex mtt">
               <article dir="auto" className="one-task">
-                <h2>New Task</h2>
-                <ul>
-                  <li>Sub Task</li>
-                  <li>Sub Task</li>
-                </ul>
-                <p className="time">A day ago</p>
+                <Link to="/EditTask">
+                  <h2>New Task</h2>
+                  <ul>
+                    <li>Sub Task</li>
+                    <li>Sub Task</li>
+                  </ul>
+                  <p className="time">A day ago</p>
+                </Link>
               </article>
 
               <article dir="auto" className="one-task">
-                <h2>New Task</h2>
-                <ul>
-                  <li>Sub Task</li>
-                  <li>Sub Task</li>
-                </ul>
-                <p className="time">A day ago</p>
+                <Link to="/EditTask">
+                  <h2>New Task</h2>
+                  <ul>
+                    <li>Sub Task</li>
+                    <li>Sub Task</li>
+                  </ul>
+                  <p className="time">A day ago</p>
+                </Link>
               </article>
 
               <article dir="auto" className="one-task">
-                <h2>تاسك جديد</h2>
-                <ul>
-                  <li>تاسك 1</li>
-                  <li>تاسك 2</li>
-                </ul>
-                <p className="time">A day ago</p>
+                <Link to="/EditTask">
+                  <h2>تاسك جديد</h2>
+                  <ul>
+                    <li>تاسك 1</li>
+                    <li>تاسك 2</li>
+                  </ul>
+                  <p className="time">A day ago</p>
+                </Link>
               </article>
             </section>
 
             {/* Add new task */}
             <section className="mt add-task-btn">
-              <button>
+              <button
+                onClick={() => {
+                  setShowModel(true);
+                }}
+              >
                 Add New Task <i className="fas fa-plus"></i>{" "}
               </button>
             </section>
+            {showModel && (
+              <Model closeModel={closeModel}>
+                <div className="task-model">
+                  <div className="task-model-inner">
+                    <input required placeholder="Add Title" type="text" />
+                    
+                    <div className="details-row flex">
+                      <input placeholder="Details : " type="text" />
+                      <button className="add-btn">Add</button>
+                    </div>
+                    
+                    <button className="submit-btn">Submit</button>
+                  </div>
+                </div>
+              </Model>
+            )}
           </main>
           <Footer />
         </div>

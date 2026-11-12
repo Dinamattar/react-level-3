@@ -20,6 +20,9 @@ body {
 .mttt{
   margin-top: 3em;
 }
+.center{
+ text-align: center;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -135,9 +138,32 @@ main {
 .dark {
   background-color: black;
 }
-.dark main {
+
+
+.App.dark main span{
+  color:#fff;
+}
+
+.App.ligth main {
+  background-color: #f2f2f2;
+
+}
+.App.dark main {
   background-color: black;
   color: rgb(255, 254, 254);
+}
+
+.App.ligth main select,
+.App.ligth main textarea{
+  background-color: #fff;
+  color:#111;
+  border-color:#607d8b;
+}
+.App.dark main select,
+.App.dark main textarea{
+  background-color: #333;
+  color:#fff;
+  border-color:#607d8b;
 }
  /* animation for heart */
 span {
