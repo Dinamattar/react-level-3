@@ -22,14 +22,26 @@
   gap: 15px;
   justify-content: center;
   align-items: center;
-  /* position: fixed; */
   top: 50%;
   left: 50%;
+    /* position: fixed; */
   /* transform: translate(-50%,-50%); */
   /* scale: 0; */
-    transition: 1s;
+    /* transition: 1s; */
     border: 1.5px solid #111;
-    scale: 1;
+    /* scale: 1; */
     transform: translateY(0);
+    animation: mymove 0.5s ;
+    overflow:scroll
 
 }
+
+@keyframes mymove { 
+0% {scale: 0;transform: translateY(-100vh);} 
+100% {scale: 1;transform: translateY(0);} 
+  /* 0% {transform: translate(0, 0);}  */
+  /* 20% {transform: translate(100px, 0);} 
+  40% {transform: translate(100px, 100px);} 
+  60% {transform: translate(0, 100px);}  */
+  /* 100% {transform: translate(0, 0);} */
+ } 

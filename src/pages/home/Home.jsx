@@ -9,10 +9,14 @@ import { sendEmailVerification } from "firebase/auth";
 import "./Home.css";
 import { useState } from "react";
 import Model from "../../pages/shared/Model";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
-  console.log(user);
+
+  // console.log(typeof(new Date().getTime()))
+  // console.log(user);
 
   const sendEmail = () => {
     sendEmailVerification(auth.currentUser).then(() => {
@@ -23,7 +27,17 @@ export default function Home() {
   };
 
   const [showModel, setShowModel] = useState(false);
-  const resetPassword = (eo) => {
+  const [array, setArray] = useState([]);
+  const [subTask, setSubTask] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+
+  const addBTN = () => {
+    array.push(subTask);
+    console.log(array);
+    setSubTask("");
+  };
+
+  const modelShow = (eo) => {
     eo.preventDefault();
     setShowModel(true);
   };
@@ -110,8 +124,8 @@ export default function Home() {
             {/* Add new task */}
             <section className="mt add-task-btn">
               <button
-                onClick={() => {
-                  setShowModel(true);
+                onClick={(eo) => {
+                  modelShow(eo);
                 }}
               >
                 Add New Task <i className="fas fa-plus"></i>{" "}
@@ -121,14 +135,59 @@ export default function Home() {
               <Model closeModel={closeModel}>
                 <div className="task-model">
                   <div className="task-model-inner">
-                    <input required placeholder="Add Title" type="text" />
-                    
+                    <input
+                      onChange={(eo) => {
+                        setTaskTitle(eo.target.value);
+                      }}
+                      required
+                      placeholder="Add Title"
+                      type="text"
+                      value={taskTitle}
+                    />
+
                     <div className="details-row flex">
-                      <input placeholder="Details : " type="text" />
-                      <button className="add-btn">Add</button>
+                      <input
+                        onChange={(eo) => {
+                          setSubTask(eo.target.value);
+                        }}
+                        placeholder="Details : "
+                        type="text"
+                        value={subTask}
+                      />
+                      <button
+                        onClick={(eo) => {
+                          eo.preventDefault();
+                          addBTN();
+                        }}
+                        className="add-btn"
+                      >
+                        Add
+                      </button>
                     </div>
-                    
-                    <button className="submit-btn">Submit</button>
+                    <ul>
+                      {array.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+
+                    <button
+                      onClick={async (eo) => {
+                        eo.preventDefault();
+                        const taskID = new Date().getTime();
+                        await setDoc(doc(db, user.uid , `${taskID}`), {
+                          title: taskTitle,
+                          details: array,
+                          id: taskID,
+                        });
+                        setTaskTitle("");
+                        setArray([]);
+                        // setShowModel(false);
+                      }}
+
+                      className="submit-btn"
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </Model>

@@ -12,7 +12,7 @@ const Model = ({closeModel , children}) => {
           >
             X
           </div>
-          {children}
+          {children} 
         </form>
         </div>
     );

@@ -143,3 +143,21 @@
   line-height: 1;
   width:auto;
 }
+
+.home .task-model ul {
+  padding-left: 20px;
+  margin:0;
+  width: 100%;
+  text-align: left;
+}
+
+.home .task-model li{
+  list-style-type: circle;
+  list-style-position: inside;
+  margin-bottom: 5px;
+  line-height: 1.4;
+  color: #333;
+  font-size: 15px;
+  word-break: break-word;
+  text-align: left;
+}
