@@ -139,18 +139,39 @@ main {
   background-color: black;
 }
 
-
-.App.dark main span{
-  color:#fff;
-}
-
 .App.ligth main {
   background-color: #f2f2f2;
 
 }
+.App.ligth main h1,
+.App.ligth main h2,
+.App.ligth main h3,
+.App.ligth main h4,
+.App.ligth main h5,
+.App.ligth main h6,
+.App.ligth main p, 
+.App.ligth main li,
+.App.ligth main label,
+.App.ligth main span {
+  color:#111;
+}
+
 .App.dark main {
   background-color: black;
   color: rgb(255, 254, 254);
+}
+
+.App.dark main h1,
+.App.dark main h2,
+.App.dark main h3,
+.App.dark main h4,
+.App.dark main h5 ,
+.App.dark main h6,
+.App.dark main label,
+.App.dark main p,
+.App.dark main li,
+.App.dark main span {
+  color : #fff ;
 }
 
 .App.ligth main select,

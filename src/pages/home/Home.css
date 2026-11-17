@@ -32,6 +32,7 @@
   width: 300px;
   height: 200px;
   transition: 0.2s;
+  position: relative;
 }
 
 .home .all-task .one-task:hover {
@@ -56,9 +57,13 @@
 }
 
 .home .all-task .one-task .time {
-  font-size: 10px;
-  text-align: right;
-  margin-right: 8px;
+  font-size: 12px;
+  font-weight: normal;
+  /* text-align: right; */
+  /* margin-right: 8px; */
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
 }
 /* Add new task */
 .home .add-task-btn button {
@@ -161,3 +166,37 @@
   word-break: break-word;
   text-align: left;
 }
+
+/* loading  */
+.my-spinner {
+  width: 20px; 
+  height: 20px;
+  border: 3px solid white;
+  border-top: 3px solid transparent; 
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite; 
+  margin: auto;
+  } 
+                
+  @keyframes spin {  
+  to { transform: rotate(360deg); }  
+  }
+
+  /* success massage */
+  .home .task_massage{
+    background-color: whitesmoke;
+    font-size: 18px;
+    color : #333 !important;
+    padding: 3px 5px ;
+    font-weight: normal;
+    border-radius:5px ;
+    position: fixed ;
+    top:100px;
+    transition: 1s;
+  }
+
+  .home .fa-circle-check{
+    color: teal;
+    margin-left: 5px;
+
+  }

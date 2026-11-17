@@ -1,64 +1,55 @@
+/* eslint-disable react/jsx-no-undef */
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import Header from "../../comp/Header";
 import Footer from "../../comp/Footer";
 import "./EditTask.css";
+import { auth } from "../../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
+import TitleSection from "./TitleSection";
+import SubTaskEditSection from "./SubTaskEditSection";
+import BottonSection from "./BottonSection";
 
 const EditTask = () => {
-  return (
-    <div>
-      <Helmet>
-        <title>Edit Task page</title>
-      </Helmet>
-      <Header />
-      <div className="edit-task">
-        {/* title */}
-        <section className="title center">
-          <h1>
-            <input
-              value={"New Task"}
-              className="title-input center"
-              type="text"
-            />
-            <i className="fa-regular fa-pen-to-square"></i>
-          </h1>
-        </section>
+  const [user, loading, error] = useAuthState(auth);
 
-        {/* sub-tasks section */}
-        <section className="sub-task mtt">
-          <div className="parent-time">
-            <p className="time">Created : 6 days ago</p>
-            <div>
-              <input id="checkbox" type="checkbox" />
-              <label htmlFor="checkbox"> Completed </label>
-            </div>
-          </div>
-
-          <ul>
-            <li className="card-task flex">
-              <p>Sub Task</p>
-              <i className="fa-solid fa-trash"></i>
-            </li>
-            <li className="card-task flex">
-              <p>Sub Task</p>
-              <i className="fa-solid fa-trash"></i>
-            </li>
-          </ul>
-        </section>
-
-        {/* add more BTN && delete BIN */}
-        <section className="center mtt">
-          <button className="add-more-btn">
-            Add More <i className="fa-solid fa-plus"></i>
-          </button>
-          <div>
-            <button className="delete mtt">Delete Task</button>
-          </div>
-        </section>
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <main>
+          <p className="load">Loading...</p>
+        </main>
+        <Footer />
       </div>
-      <Footer />
-    </div>
-  );
+    );
+  }
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error.message}</p>
+      </div>
+    );
+  }
+  if (user) {
+    return (
+      <div>
+        <Helmet>
+          <title>Edit Task page</title>
+        </Helmet>
+        <Header />
+        <div className="edit-task">
+          {/* title */}
+          <TitleSection user={user} />
+          {/* sub-tasks section */}
+          <SubTaskEditSection user={user} />
+          {/* add more BTN && delete BIN */}
+          <BottonSection user={user} />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 };
 
 export default EditTask;

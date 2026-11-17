@@ -8,13 +8,14 @@ import { Helmet } from "react-helmet-async";
 import { sendEmailVerification } from "firebase/auth";
 import "./Home.css";
 import { useState } from "react";
-import Model from "../../pages/shared/Model";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import HomeModel from "./HomeModel";
+import AllTaskSection from "./AllTaskSection";
 
 export default function Home() {
   const [user, loading, error] = useAuthState(auth);
-
+  
   // console.log(typeof(new Date().getTime()))
   // console.log(user);
 
@@ -30,9 +31,15 @@ export default function Home() {
   const [array, setArray] = useState([]);
   const [subTask, setSubTask] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
+  const [showLoading, setShowLoading] = useState(false);
+  const [showMassageSuccess, setShowMassageSuccess] = useState(false);
 
-  const addBTN = () => {
-    array.push(subTask);
+  // function of model
+  const addBTN = (eo) => {
+    eo.preventDefault();
+    if(!array.includes(subTask)){
+      array.push(subTask);
+}
     console.log(array);
     setSubTask("");
   };
@@ -43,6 +50,33 @@ export default function Home() {
   };
   const closeModel = () => {
     setShowModel(false);
+  };
+  const titleInput = (eo) => {
+    setTaskTitle(eo.target.value);
+  };
+
+  const detailsInput = (eo) => {
+    setSubTask(eo.target.value);
+  };
+
+  const submitBTN = async (eo) => {
+    eo.preventDefault();
+    setShowLoading(true);
+    const taskID = new Date().getTime();
+    await setDoc(doc(db, user.uid, `${taskID}`), {
+      title: taskTitle,
+      details: array,
+      id: taskID,
+    });
+    setTaskTitle("");
+    setArray([]);
+    setShowLoading(false);
+    setShowModel(false);
+    setShowMassageSuccess(true);
+
+    setTimeout(() => {
+      setShowMassageSuccess(false);
+    }, 3000);
   };
 
   if (loading) {
@@ -84,43 +118,8 @@ export default function Home() {
                 <option value="aa">Not Completed</option>
               </select>
             </section>
-
-            {/* show all task */}
-            <section className="all-task flex mtt">
-              <article dir="auto" className="one-task">
-                <Link to="/EditTask">
-                  <h2>New Task</h2>
-                  <ul>
-                    <li>Sub Task</li>
-                    <li>Sub Task</li>
-                  </ul>
-                  <p className="time">A day ago</p>
-                </Link>
-              </article>
-
-              <article dir="auto" className="one-task">
-                <Link to="/EditTask">
-                  <h2>New Task</h2>
-                  <ul>
-                    <li>Sub Task</li>
-                    <li>Sub Task</li>
-                  </ul>
-                  <p className="time">A day ago</p>
-                </Link>
-              </article>
-
-              <article dir="auto" className="one-task">
-                <Link to="/EditTask">
-                  <h2>تاسك جديد</h2>
-                  <ul>
-                    <li>تاسك 1</li>
-                    <li>تاسك 2</li>
-                  </ul>
-                  <p className="time">A day ago</p>
-                </Link>
-              </article>
-            </section>
-
+   {/* show all task */}
+           <AllTaskSection user={user}/>
             {/* Add new task */}
             <section className="mt add-task-btn">
               <button
@@ -132,66 +131,25 @@ export default function Home() {
               </button>
             </section>
             {showModel && (
-              <Model closeModel={closeModel}>
-                <div className="task-model">
-                  <div className="task-model-inner">
-                    <input
-                      onChange={(eo) => {
-                        setTaskTitle(eo.target.value);
-                      }}
-                      required
-                      placeholder="Add Title"
-                      type="text"
-                      value={taskTitle}
-                    />
-
-                    <div className="details-row flex">
-                      <input
-                        onChange={(eo) => {
-                          setSubTask(eo.target.value);
-                        }}
-                        placeholder="Details : "
-                        type="text"
-                        value={subTask}
-                      />
-                      <button
-                        onClick={(eo) => {
-                          eo.preventDefault();
-                          addBTN();
-                        }}
-                        className="add-btn"
-                      >
-                        Add
-                      </button>
-                    </div>
-                    <ul>
-                      {array.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-
-                    <button
-                      onClick={async (eo) => {
-                        eo.preventDefault();
-                        const taskID = new Date().getTime();
-                        await setDoc(doc(db, user.uid , `${taskID}`), {
-                          title: taskTitle,
-                          details: array,
-                          id: taskID,
-                        });
-                        setTaskTitle("");
-                        setArray([]);
-                        // setShowModel(false);
-                      }}
-
-                      className="submit-btn"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </div>
-              </Model>
+             <HomeModel
+             closeModel={closeModel}
+             addBTN={addBTN}
+             submitBTN={submitBTN}
+             titleInput={titleInput}
+             detailsInput={detailsInput}
+             taskTitle={taskTitle}
+             subTask={subTask}
+             array={array}
+             showLoading={showLoading}
+             />
             )}
+            <p
+              style={{ right: showMassageSuccess ? "15vw" : "-100vw" }}
+              className="task_massage"
+            >
+              Task added successfully
+              <i className="fa-solid fa-circle-check"></i>
+            </p>
           </main>
           <Footer />
         </div>
