@@ -67,6 +67,7 @@ export default function Home() {
       title: taskTitle,
       details: array,
       id: taskID,
+      complete:false ,
     });
     setTaskTitle("");
     setArray([]);

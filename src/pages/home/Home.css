@@ -56,7 +56,7 @@
   margin-right: 15px;
 }
 
-.home .all-task .one-task .time {
+.home .all-task .one-task .time time {
   font-size: 12px;
   font-weight: normal;
   /* text-align: right; */

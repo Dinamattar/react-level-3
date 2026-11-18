@@ -1,11 +1,14 @@
 import React from "react";
-import { collection } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { doc } from "firebase/firestore";
+import { useDocument } from "react-firebase-hooks/firestore";
 import { db } from "../../firebase/config";
 
-const TitleSection = ({ user }) => {
-  const [value, loading, error] = useCollection(collection(db, user.uid));
 
+const TitleSection = ({ user , StringId,titleInput}) => {
+  const [value, loading, error] = useDocument(doc(db, user.uid,StringId));
+
+ 
+   
   if (loading) {
     return (
       <main>
@@ -21,15 +24,19 @@ const TitleSection = ({ user }) => {
     );
   }
 
-
+if(value){
   return (
     <section className="title center">
       <h1>
-        <input value={"New Task"} className="title-input center" type="text" />
+        <input onChange={async(eo) => {
+          titleInput(eo)
+        }
+        }
+        defaultValue={value.data().title} className="title-input center" type="text" />
         <i className="fa-regular fa-pen-to-square"></i>
       </h1>
     </section>
-  );
+  );}
 };
 
 export default TitleSection;

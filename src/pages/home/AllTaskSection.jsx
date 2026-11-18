@@ -28,21 +28,21 @@ if(value){
     {value.docs.map((item) => {
       return( 
      <div>
-         <article dir="auto" className="one-task">
+         <article key={item.data().id} dir="auto" className="one-task">
            <Link to={`/EditTask/${item.data().id}`}>
              <h2>{item.data().title}</h2>
              <ul>
              {item.data().details.map((item,index) => {
                if(index < 2){
                return(
-                   <li>{item}</li>
+                   <li key={item}>{item}</li>
                )}else{
                    return false 
                } 
              }
              )} 
              </ul>
-             <p className="time"><Moment className='profile-data' fromNow date={user.data().id} /></p>
+             <p className="time"><Moment className='profile-data' fromNow date={item.data().id} /></p>
            </Link>
          </article>
         
